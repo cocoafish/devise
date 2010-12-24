@@ -103,7 +103,10 @@ unless Devise.rack_session?
 
   class ActionDispatch::Request
     def reset_session
-      session.destroy if session && session.respond_to?(:destroy)
+      
+      # this crashes Rails 3
+      #session.destroy if session && session.respond_to?(:destroy)
+      
       self.session = {}
       @env['action_dispatch.request.flash_hash'] = nil
     end

@@ -72,8 +72,18 @@ module Devise
     end
 
     def http_auth_body
-      method = :"to_#{request.format.to_sym}"
-      {}.respond_to?(method) ? { :error => i18n_message }.send(method) : i18n_message
+      method = :"to_#{request.format.to_sym}"      
+      if {}.respond_to?(method)        
+        if method == :to_json
+          "{\n  \"meta\": {\n    \"stat\":\"fail\",\n    \"code\":500,\n    \"message\":\"#{i18n_message}\"\n  }\n}\n"          
+        elsif method == :to_xml
+          "<xml>hello</xml>\n"
+        else
+          { :error => i18n_message }.send(method)
+        end        
+      else
+        i18n_message
+      end
     end
 
     def recall_controller
