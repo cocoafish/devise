@@ -75,7 +75,7 @@ module Devise
       method = :"to_#{request.format.to_sym}"      
       if {}.respond_to?(method)        
         if method == :to_json
-          "{\n  \"meta\": {\n    \"stat\":\"fail\",\n    \"code\":500,\n    \"message\":\"#{i18n_message}\"\n  }\n}\n"          
+          "{\n  \"meta\": {\n    \"stat\":\"fail\",\n    \"code\":401,\n    \"message\":\"#{i18n_message}\"\n  }\n}\n"          
         elsif method == :to_xml
           "<xml>hello</xml>\n"
         else
