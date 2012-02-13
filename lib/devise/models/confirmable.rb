@@ -49,7 +49,7 @@ module Devise
       end
 
       # prepare send confirmation, added by cocoafish api
-      def send_confirmation_instructions
+      def prepare_send_confirmation
         generate_confirmation_token! if self.confirmation_token.nil?
       end
         
