@@ -1,3 +1,6 @@
+== 1.1.6
+* add confirmable prepare_send_confirmation for cocoafish api
+
 == 1.1.5
 
 * bugfix

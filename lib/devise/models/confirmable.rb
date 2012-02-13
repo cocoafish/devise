@@ -30,7 +30,7 @@ module Devise
 
       included do
         before_create :generate_confirmation_token, :if => :confirmation_required?
-        after_create  :send_confirmation_instructions, :if => :confirmation_required?
+   #     after_create  :send_confirmation_instructions, :if => :confirmation_required?
       end
 
       # Confirm a user by setting it's confirmed_at to actual time. If the user
@@ -48,6 +48,11 @@ module Devise
         !!confirmed_at
       end
 
+      # prepare send confirmation, added by cocoafish api
+      def send_confirmation_instructions
+        generate_confirmation_token! if self.confirmation_token.nil?
+      end
+        
       # Send confirmation instructions by email
       def send_confirmation_instructions
         generate_confirmation_token! if self.confirmation_token.nil?
