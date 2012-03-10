@@ -32,8 +32,16 @@ module Devise
     end
 
     def http_auth
-      self.status = 401
+      if params.has_key?(:suppress_response_codes)
+        self.status = 200
+      else
+        self.status = 401
+      end
       self.headers["WWW-Authenticate"] = %(Basic realm=#{Devise.http_authentication_realm.inspect})
+      self.headers['Access-Control-Allow-Origin'] = request.headers['origin'] if request.headers['origin'] != nil
+      self.headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
+      self.headers['Access-Control-Allow-Headers'] = 'x-requested-with, Authorization'
+      self.headers['Access-Control-Allow-Credentials'] = 'true'
       self.content_type = request.format.to_s
       self.response_body = http_auth_body
     end
