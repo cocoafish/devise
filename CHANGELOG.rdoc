@@ -1,3 +1,6 @@
+== 1.1.8
+* patch authentication 401 error with cors headers
+
 == 1.1.7
 * add confirmable prepare_send_confirmation for cocoafish api
 
